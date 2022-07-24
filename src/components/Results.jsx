@@ -11,10 +11,12 @@ export const Results = () => {
 
   useEffect(() => {
     if (searchTerm !== '') {
-      if (location.pathname === '/videos') {
-        getResults(`/search/q=${searchTerm} videos`);
+      if (location.pathname === '/images') {
+        getResults(`/image/q=${searchTerm}`);
+      } else if (location.pathname === '/videos') {
+        getResults(`/video/q=${searchTerm}`);
       } else {
-        getResults(`${location.pathname}/q=${searchTerm}&num=40`);
+        getResults(`${location.pathname}/q=${searchTerm}&num=40000`);
       }
     }
   }, [searchTerm, location.pathname]);
@@ -35,17 +37,17 @@ export const Results = () => {
           ))}
         </div>
       );
-    // case '/images':
-    //   return (
-    //     <div className="flex flex-wrap justify-center items-center">
-    //       {results?.image_results?.map(({ image, link: { href, title } }, index) => (
-    //         <a href={href} target="_blank" key={index} rel="noreferrer" className="sm:p-3 p-5">
-    //           <img src={image?.src} alt={title} loading="lazy" />
-    //           <p className="sm:w-36 w-36 break-words text-sm mt-2">{title}</p>
-    //         </a>
-    //       ))}
-    //     </div>
-    //   );
+    case '/images':
+      return (
+        <div className="flex flex-wrap justify-center items-center">
+          {results?.image_results?.map(({ image, link: { href, title } }, index) => (
+            <a href={href} target="_blank" key={index} rel="noreferrer" className="sm:p-3 p-5">
+              <img src={image?.src} alt={title} loading="lazy" />
+              <p className="sm:w-36 w-36 break-words text-sm mt-2">{title}</p>
+            </a>
+          ))}
+        </div>
+      );
     case '/news':
       return (
         <div className="sm:px-56 flex flex-wrap justify-between items-center space-y-6">
